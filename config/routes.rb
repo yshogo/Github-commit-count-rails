@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   post '/auth/:provider/callback', :to => 'sessions#callback'
   get '/logout' => 'sessions#destroy', :as => :logout
   get '/tweet' => 'tweet_api#tweet'
+  post '/save_git' => 'home#git_create'
 end
