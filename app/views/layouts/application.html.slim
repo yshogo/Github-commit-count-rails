@@ -6,13 +6,33 @@ html
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-  body
-    = yield
-    - if current_user
-      = current_user.name
-      = link_to 'ログアウト', logout_path
-      = form_tag(save_git_path, method:'post') do
-        = text_field_tag :github_id
-        = submit_tag '保存'
-    - else
-      = link_to 'ログイン', '/auth/twitter'
+    meta[charset="UTF-8"]
+    meta[http-equiv="X-UA-Compatible" content="IE=Edge"]
+    meta[name="viewport" content="width=device-width, initial-scale=1"]
+
+  body.container
+    h1 Commit Count!
+    div
+      - if current_user
+        | ようこそ
+        = current_user.name
+        | さん
+        p
+          - if current_user.GithubId == nil
+            p.margin_top
+            | githubのアカウントIDを入力してください。
+            = form_tag(save_git_path, method:'post') do
+              = text_field_tag :github_id, '', class: 'form-control',placeholder: 'GithubのアカウントID'
+              br
+              = submit_tag 'Submit',class:"btn btn-primary btn-lg btn-block"
+              div.margin_top_left
+                = link_to 'ログアウト', logout_path
+          - else
+            p
+            | your account is　
+            = current_user.GithubId
+      - else
+        p
+        | 今日１日のコミット回数をツイートします。
+        div.login_logout
+          = link_to 'ツイッターにログインする', '/auth/twitter',class:"btn btn-primary"
