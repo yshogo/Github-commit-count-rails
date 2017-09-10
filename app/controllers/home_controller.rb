@@ -3,7 +3,7 @@ class HomeController < BaseController
   end
 
   def git_create
-    p params[:github_id]
+    User.save_github_account(params[:github_id], session[:user_id])
     redirect_to root_path
   end
 end

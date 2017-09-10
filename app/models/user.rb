@@ -11,4 +11,8 @@ class User < ApplicationRecord
     end
   end
 
+  def self.save_github_account(account_id,user_id)
+    user = User.find_by(uid: user_id)
+    user.update(GithubId: account_id)
+  end
 end
