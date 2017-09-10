@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title
+      | GithubCommitCountRails
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    - if current_user
+      = current_user.name
+      = link_to 'ログアウト', logout_path
+    - else
+      = link_to 'ログイン', '/auth/twitter'
+    = yield
