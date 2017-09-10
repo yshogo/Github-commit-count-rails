@@ -1,8 +1,11 @@
 class TweetApiController < ApplicationController
 
   def tweet
+    require_relative '../services/parse_json_service.rb'
+
     init
-    update("rails API TEST")
+    commit_count = ParseJsonService.new.create_tweet
+    update(create_text(commit_count))
   end
 
   private
@@ -16,12 +19,17 @@ class TweetApiController < ApplicationController
   end
 
   private
-    def update(text)
-      begin
-        @client.update(text)
-        redirect_to root_path
-      rescue => e
-        p e.message
-      end
+  def update(text)
+    begin
+      @client.update(text)
+      redirect_to root_path
+    rescue => e
+      p e.message
     end
+  end
+
+  private
+  def create_text(count)
+    '今日はGithubに' + count.to_s + '回commitしました。https://github.com/yshogo'
+  end
 end
