@@ -29,6 +29,8 @@ html
             p
             | your account is　
             = current_user.GithubId
+            br
+            = link_to 'アカウント変更','',class:'btn btn-primary btn-sm'
           div.margin_top_left
             = link_to 'ログアウト', logout_path
       - else
