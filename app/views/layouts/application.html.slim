@@ -25,12 +25,12 @@ html
               = text_field_tag :github_id, '', class: 'form-control',placeholder: 'GithubのアカウントID'
               br
               = submit_tag 'Submit',class:"btn btn-primary btn-lg btn-block"
-              div.margin_top_left
-                = link_to 'ログアウト', logout_path
           - else
             p
             | your account is　
             = current_user.GithubId
+          div.margin_top_left
+            = link_to 'ログアウト', logout_path
       - else
         p
         | 今日１日のコミット回数をツイートします。
