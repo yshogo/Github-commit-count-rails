@@ -19,8 +19,7 @@ html
               label#title
                 | あなたの今日のコミット回数をツイートします
             - if current_user
-              = current_user.name
-              | さん
+              h4 Twitter Account @ #{current_user.name}
               - if current_user.GithubId == nil
                 p.margin_top
                 | githubのアカウントIDを入力してください。
@@ -29,9 +28,7 @@ html
                   br
                   = submit_tag 'Submit',class:"btn btn-primary btn-lg btn-block"
               - else
-                p
-                | your account is　
-                = current_user.GithubId
+                h4 Github Account @ #{current_user.GithubId}
                 br
                 div.center
                   p.margin-top
