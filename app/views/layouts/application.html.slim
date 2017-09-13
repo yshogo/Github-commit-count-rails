@@ -18,10 +18,31 @@ html
             p.center
               label#title
                 | あなたの今日のコミット回数をツイートします
-            p
-            | 下記よりTwitterでログインしてください
-            img.profile-img[src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120" alt=""]
-              p.center
-                = link_to 'Sing in to Twitter', '/auth/twitter', class:'btn btn-primary btn-lg active'
-                label.checkbox.pull-left
-                span.clearfix
+            - if current_user
+              = current_user.name
+              | さん
+              - if current_user.GithubId == nil
+                p.margin_top
+                | githubのアカウントIDを入力してください。
+                = form_tag(save_git_path, method:'post') do
+                  = text_field_tag :github_id, '', class: 'form-control',placeholder: 'GithubのアカウントID'
+                  br
+                  = submit_tag 'Submit',class:"btn btn-primary btn-lg btn-block"
+              - else
+                p
+                | your account is　
+                = current_user.GithubId
+                br
+                div.center
+                  p.margin-top
+                    = link_to 'Githubアカウント変更','',class:'btn btn-primary btn-sm'
+              div.margin_top_left
+                = link_to 'ログアウト', logout_path
+            - else
+              p
+              | 下記よりTwitterでログインしてください
+              div.center
+                p.margin_top
+                  = link_to 'Sing in to Twitter', '/auth/twitter', class:'btn btn-primary btn-lg active'
+                  label.checkbox.pull-left
+                  span.clearfix
