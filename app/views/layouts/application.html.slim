@@ -9,32 +9,19 @@ html
     meta[charset="UTF-8"]
     meta[http-equiv="X-UA-Compatible" content="IE=Edge"]
     meta[name="viewport" content="width=device-width, initial-scale=1"]
-
-  body.container
-    h1 Commit Count!
-    div
-      - if current_user
-        | ようこそ
-        = current_user.name
-        | さん
-        p
-          - if current_user.GithubId == nil
-            p.margin_top
-            | githubのアカウントIDを入力してください。
-            = form_tag(save_git_path, method:'post') do
-              = text_field_tag :github_id, '', class: 'form-control',placeholder: 'GithubのアカウントID'
-              br
-              = submit_tag 'Submit',class:"btn btn-primary btn-lg btn-block"
-          - else
+    body.container
+      .row
+        .col-sm-6.col-md-4.col-md-offset-4
+          h1.text-center.login-title
+            | Count Your today's Github Commit
+          .account-wall
+            p.center
+              label#title
+                | あなたの今日のコミット回数をツイートします
             p
-            | your account is　
-            = current_user.GithubId
-            br
-            = link_to 'アカウント変更','',class:'btn btn-primary btn-sm'
-          div.margin_top_left
-            = link_to 'ログアウト', logout_path
-      - else
-        p
-        | 今日１日のコミット回数をツイートします。
-        div.login_logout
-          = link_to 'ツイッターにログインする', '/auth/twitter',class:"btn btn-primary"
+            | 下記よりTwitterでログインしてください
+            img.profile-img[src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120" alt=""]
+              p.center
+                = link_to 'Sing in to Twitter', '/auth/twitter', class:'btn btn-primary btn-lg active'
+                label.checkbox.pull-left
+                span.clearfix
