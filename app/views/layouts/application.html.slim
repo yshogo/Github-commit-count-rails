@@ -9,6 +9,36 @@ html
     meta[charset="UTF-8"]
     meta[http-equiv="X-UA-Compatible" content="IE=Edge"]
     meta[name="viewport" content="width=device-width, initial-scale=1"]
+    javascript:
+      $(function(){
+        update_hidden();
+        $('#chenge_account').click(function(){
+          update_show()
+        })
+
+        function cancel(){
+          console.log("test")
+          update_hidden();
+        }
+
+        function update_hidden(){
+          $('#update_account').hide();
+          $('#github_id').hide();
+          $('#update_submit').hide();
+          $('#cancel').hide();
+
+          $('#chenge_account').show();
+        }
+
+        function update_show(){
+          $('#chenge_account').hide();
+
+          $('#update_account').show();
+          $('#github_id').show();
+          $('#update_submit').show();
+          $('#cancel').show();
+        }
+      });
     body.container
       .row
         .col-sm-6.col-md-4.col-md-offset-4
@@ -31,8 +61,17 @@ html
                 h4 Github Account @ #{current_user.GithubId}
                 br
                 div.center
-                  p.margin-top
-                    = link_to 'Githubアカウント変更','',class:'btn btn-primary btn-sm'
+                  p.margin-top#chenge_botton_area
+                    / = button_to 'Githubアカウント変更','',class:'btn btn-primary btn-sm', id:'chenge_account'
+                    button#chenge_account.btn.btn-primary.btn-sm
+                      | Githubアカウント変更
+                    p.margin_top#update_account
+                      | githubのアカウントIDを入力してください。
+                      = form_tag(save_git_path, method:'post') do
+                        = text_field_tag :github_id, '', class: 'form-control',placeholder: 'GithubのアカウントID'
+                        br
+                        = submit_tag 'Submit',class:"btn btn-primary btn-lg btn-block",id:"update_submit"
+                a href="#" id='cancel' onclick="cancel();" キャンセル
               div.margin_top_left
                 = link_to 'ログアウト', logout_path
             - else

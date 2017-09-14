@@ -6,4 +6,7 @@ class HomeController < BaseController
     User.save_github_account(params[:github_id], session[:user_id])
     redirect_to root_path
   end
+
+  def git_update
+  end
 end
